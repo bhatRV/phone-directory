@@ -1,87 +1,81 @@
-#      *** Toy Robot Simulator ****
 
-##  Description
-The application is a simulation of a toy robot moving on a square tabletop, of dimensions 5 units x 5 units.
-
+# Project: Phone Directory
 #### Author : RASHMI VISHNU
 
-## Scenarios covered
-1)Application can take inputs through the rest end points exposed.
-Following are the rest end points exposed to simulate the robot's motion.
- PLACE  
- MOVE
- LEFT
- RIGHT
- REPORT
+##  Description
+This project implements and Simple Phone directory for any Telecom operator with few basic capabilities listed below:
+      * get all phone numbers
+      * get all phone numbers of a single customer
+      * activate a phone number
+This also provides few basic validations around the inputs , which can be extended further based on the needs.
 
-2) Basic validations around the input
 
 ## Pre-requsites
-* gradle
-* Java 11
+The project utilises the following technologies:
+- Java 8
+- Spring Boot
+- Gradle
+- H2 in memory as the data store (with few pre-loaded entries)
+- IntelliJ if you would like to extend the features
 
-# Running the Simulation
+## Technical Notes
+Below are some details on technical aspects of the project and few learnings.
 
-## To run from Eclipse/IntelliJ
-Run as application in intelliJ "RobotApplication.java"
+## Assumptions & Design considerations
+1. Default port will be -8888, which can be modified
+2. Only minimal validations are provided.
+3. A customer can have many phone numbers 
+4. Phone number is unique and belong to a single customer
+5. Comes with few pre-loaded entries, which can be extended by providing an add API
+6. 2 seperate controllers to keep it extendable to provide more operations
 
-### To build the application
-
-./gradlew clean build
-
-### To run the application from command prompt or using gradle
-
-./gradlew bootRun
-
-
-## Swagger 
-1. Start the application using bootRun
-
-2. Browser : http://localhost:8080/swagger-ui.html
-
-
-## Assumptions 
-1. Default port will be tomcat's default port -8080
-2. Only basic few validations are provided.
-3. Covers few basic test scenarios including success and error cases
- 
 ## Scope for Enhancements
 1. Extensive test cases to cover more scenarios can be added
 2. Validations can be enhanced to include more on the inputs. Basic validations are provided for now.
 3. User Interface can be provided.
 4. Various levels of testing can be included
+5. More APIs to add and update directory can be included
+6. Replace H2 Db, with proper db instance 
+7. Containerize for better deployment
 
-## Technical Notes
-Below are some details on technical aspects of the project and few learnings.
-### Development approach
 
 ### Testing
 Unit tests
 Can be improved to include component,blackbox etc.
+ 
 
-#### Screenshot of Test Execution
-
-![Screenshot of Test Execution](testcases_view.png)
-
-#### Sample postman
-
-![Screenshot of Postman Execution](sample_postman.png)
-
-
-#### Sample Curl commands
-1. **PLACE**
-
-    curl --location --request POST 'http://localhost:8080/post' \
-   --header 'Content-Type: application/json' \
-   --data-raw '{
-   "xCordinate" : 4,
-   "yCordinate" : 4,
-   "directionEnum" : "EAST"
-   }'
-
+## Build & Run
+The project utilises Gradle Wrapper.
+To build the project, browse to the project root directory and simply execute:
+```
+./gradlew build
+```
+To run the application, execute:
+```
+./gradlew bootRun
+```
+This will initialise SpringBoot on port 8080 where the API can be accessed via:
+```
+http://localhost:8888
+```
+  
+# Execution Details
+NOTE: Pre loaded with some data through sql scripts
 
 
+## Endpoints
+Get a customer's phone numbers
+```shell
+http://localhost:8888/ 
+```
 
-2. **MOVE**
+Get all phone numbers
+```shell
+http://localhost:8888/ 
+```
 
-     curl --location --request POST 'http://localhost:8080/move
+Activate a phone number
+```shell
+http://localhost:8888/ 
+```
+  
