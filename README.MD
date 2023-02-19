@@ -4,9 +4,12 @@
 
 ##  Description
 This project implements and Simple Phone directory for any Telecom operator with few basic capabilities listed below:
-      * get all phone numbers
-      * get all phone numbers of a single customer
-      * activate a phone number
+      
+      -  get all phone numbers
+      
+      -  get all phone numbers of a single customer
+      
+      -  activate a phone number
 This also provides few basic validations around the inputs , which can be extended further based on the needs.
 
 
@@ -25,7 +28,7 @@ Below are some details on technical aspects of the project and few learnings.
 1. Default port will be -8888, which can be modified
 2. Only minimal validations are provided.
 3. A customer can have many phone numbers 
-4. Phone number is unique and belong to a single customer
+4. Phone numbers are unique and will be for a single customer
 5. Comes with few pre-loaded entries, which can be extended by providing an add API
 6. 2 seperate controllers to keep it extendable to provide more operations
 
