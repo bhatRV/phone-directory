@@ -123,7 +123,9 @@ Below are some details on technical aspects of the project and few learnings.
 
 ### Testing
 Unit tests
-TODO: Can be improved to include component,blackbox etc.
+TODO: Can be improved to include component,blackbox and controller tests etc.
+![img_3.png](img_3.png)
+
 
 ## Access the Database (H2)
 

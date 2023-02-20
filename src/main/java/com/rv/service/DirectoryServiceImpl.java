@@ -45,13 +45,14 @@ public class DirectoryServiceImpl implements DirectoryService {
                                             .status(Status.NEW).build())
                                     .collect(Collectors.toSet()))
                             .build();
-                    try {
+
+                     try {
                         customerRepository.save(customer);
                     } catch (DataIntegrityViolationException ex) {
                         throw new DuplicateDataException(ERROR_MSG_DUPLICTE_RECORD);
                     }
                     catch (Exception ex) {
-                        throw new DuplicateDataException(ERROR_MSG_INVALID_INPUT);
+                        throw new InvalidInputException(ERROR_MSG_INVALID_INPUT);
                     }
                 }
 
@@ -75,11 +76,12 @@ public class DirectoryServiceImpl implements DirectoryService {
     @Override
     public void activatePhoneNumber(String pNumber) {
         Optional<PhoneNumber> phoneNumber = phoneRepository.findByNumber(pNumber);
-        if (phoneNumber.isPresent()) {
+
+           if (phoneNumber.isPresent()) {
             phoneNumber.get().setStatus(Status.ACTIVE);
             phoneRepository.save(phoneNumber.get());
         } else {
-            new InvalidInputException(ERROR_MSG_INVALID_PHONE);
+            throw new InvalidInputException(ERROR_MSG_INVALID_PHONE);
         }
     }
 
