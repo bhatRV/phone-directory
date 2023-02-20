@@ -13,11 +13,6 @@ public class ActivationController {
     @Autowired
     private DirectoryService directoryService;
 
-    @GetMapping(value = "/phone_numbers", produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<?> getAllPhoneNumbers() {
-        return ResponseEntity.ok(directoryService.getAllPhoneNumbers());
-    }
-
     /**
      * Activate a phone number
      *

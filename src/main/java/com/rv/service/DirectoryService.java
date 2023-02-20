@@ -9,8 +9,6 @@ import java.util.List;
 
 public interface DirectoryService {
 
-    Customer getCustomer(final Long id);
-
     List<PhoneNumberData> getAllPhoneNumbersForCustomers(final Long customerId);
 
     List<PhoneNumber> getAllPhoneNumbers();

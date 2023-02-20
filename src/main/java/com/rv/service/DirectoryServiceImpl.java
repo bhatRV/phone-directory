@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.rv.config.Constants.ERROR_MSG_DUPLICTE_RECORD;
+import static com.rv.config.Constants.ERROR_MSG_INVALID_INPUT;
 import static com.rv.config.Constants.ERROR_MSG_INVALID_PHONE;
 import static com.rv.config.Constants.ERROR_MSG_NO_CUSTOMER_RECORDS_FOUND;
 
@@ -46,18 +48,15 @@ public class DirectoryServiceImpl implements DirectoryService {
                     try {
                         customerRepository.save(customer);
                     } catch (DataIntegrityViolationException ex) {
-//                        System.out.println(">>>>>>."+ex.getCause());
-                        throw new DuplicateDataException(ex.getCause().toString());
+                        throw new DuplicateDataException(ERROR_MSG_DUPLICTE_RECORD);
+                    }
+                    catch (Exception ex) {
+                        throw new DuplicateDataException(ERROR_MSG_INVALID_INPUT);
                     }
                 }
 
         );
 
-    }
-
-    @Override
-    public Customer getCustomer(Long id) {
-        return null;
     }
 
     public List<PhoneNumberData> getAllPhoneNumbersForCustomers(final Long customerId) {

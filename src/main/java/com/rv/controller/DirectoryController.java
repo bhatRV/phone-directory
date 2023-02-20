@@ -29,29 +29,31 @@ public class DirectoryController {
     @Autowired
     private DirectoryService directoryService;
 
-    /**
-     * Get all phone numbers of a single customer
-     *
-     * @return List of phoneNumbers.
-     */
-    @Operation(summary = "Get all customer phone Numbers")
+    @Operation(summary = "Get all phone numbers of a given customer based on the customer Id Provided")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List of phone numbers", content =
             @Content(array = @ArraySchema(schema = @Schema(implementation = PhoneNumberData.class)))),
-            @ApiResponse(responseCode = "400", description = "Invalid id supplied",
+            @ApiResponse(responseCode = "400", description = "Invalid input supplied",
                     content = @Content),
-            @ApiResponse(responseCode = "404", description = "Book not found",
+            @ApiResponse(responseCode = "404", description = "Entry/Data not found",
                     content = @Content)})
+
     @GetMapping(value = "/customer/{customer_id}", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<PhoneNumberData>> getCustomerPhoneNumbers(final @PathVariable Long customer_id) {
         return ResponseEntity.ok(directoryService.getAllPhoneNumbersForCustomers(customer_id));
     }
 
-    /**
-     * Get all phone numbers with the status
-     *
-     * @return List of Phone numbers
-     */
+
+    @Operation(summary = "Get all phone numbers across all customers with the Activation status")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of phone numbers with status", content =
+            @Content(array = @ArraySchema(schema = @Schema(implementation = PhoneNumberData.class)))),
+            @ApiResponse(responseCode = "400", description = "Invalid input supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Entry/Data not found",
+                    content = @Content)})
+
+
     @GetMapping(value = "/phone_numbers", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<PhoneNumber>> getAllPhoneNumbers() {
 
@@ -59,20 +61,24 @@ public class DirectoryController {
     }
 
 
-    /**
-     * API to add the contacts in to a phone book
-     *
-     * @return
-     */
+
+    @Operation(summary = "Add the customers and their phone numbers to the the phone book; If status of phone number is not provided ," +
+            " it will be defaulted to NEW. Use the actovation API to actovate the phone numer ")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Adds all the customers and returns the corresponding Ids of the customer." +
+                    " The same Ids should be used for fetching the details", content =
+            @Content(array = @ArraySchema(schema = @Schema(implementation = PhoneNumberData.class)))),
+            @ApiResponse(responseCode = "400", description = "Invalid input supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Entry/Data not found",
+                    content = @Content)})
 
 
     @PostMapping("/customers")
     public HttpStatus addCustomerWithPhoneNumbers(@RequestBody List<CustomerData> custData) {
-        System.out.println(" Incoming Customer: " + custData);
         directoryService.addCustomer(custData);
         return HttpStatus.OK;
 
     }
-
 
 }
