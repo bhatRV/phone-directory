@@ -1,5 +1,6 @@
 package com.rv.exception.handler;
 
+import com.rv.exception.DuplicateDataException;
 import com.rv.exception.InvalidInputException;
 import com.rv.exception.NoRecordsFoundException;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(InvalidInputException.class)
     public final ResponseEntity<APIErrorResponse> handleInvalidRequestExceptions(InvalidInputException ex, WebRequest request) {
+
+        APIErrorResponse APIErrorResponse = new APIErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(APIErrorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(DuplicateDataException.class)
+    public final ResponseEntity<APIErrorResponse> handleDuplicateDataException(DuplicateDataException ex, WebRequest request) {
 
         APIErrorResponse APIErrorResponse = new APIErrorResponse(ex.getMessage(), HttpStatus.BAD_REQUEST);
         return new ResponseEntity<>(APIErrorResponse, HttpStatus.BAD_REQUEST);

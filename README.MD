@@ -11,7 +11,7 @@ This project implements and Simple Phone directory for any Telecom operator with
       
       -  activate a phone number
 This also provides few basic validations around the inputs , which can be extended further based on the needs.
-
+http://localhost:8888/h2-console/login.do
 
 ## Pre-requsites
 The project utilises the following technologies:

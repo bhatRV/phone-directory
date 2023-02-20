@@ -1,45 +1,57 @@
 package com.rv.controller;
 
-import com.rv.entities.Customer;
 import com.rv.entities.PhoneNumber;
+import com.rv.model.CustomerData;
+import com.rv.model.PhoneNumberData;
 import com.rv.service.DirectoryService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/v1/phone-directory")
-@Api(value = "Phone Directory Controller" )
 public class DirectoryController {
     @Autowired
     private DirectoryService directoryService;
 
-    /** Get all phone numbers of a single customer
+    /**
+     * Get all phone numbers of a single customer
+     *
      * @return List of phoneNumbers.
      */
-    @GetMapping(value = "/customer/{customer_id}", produces = {MediaType.APPLICATION_JSON_VALUE}) public ResponseEntity<?> getCustomerPhoneNumbers(final @PathVariable long customer_id) {
+    @Operation(summary = "Get all customer phone Numbers")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "List of phone numbers", content =
+            @Content(array = @ArraySchema(schema = @Schema(implementation = PhoneNumberData.class)))),
+            @ApiResponse(responseCode = "400", description = "Invalid id supplied",
+                    content = @Content),
+            @ApiResponse(responseCode = "404", description = "Book not found",
+                    content = @Content)})
+    @GetMapping(value = "/customer/{customer_id}", produces = {MediaType.APPLICATION_JSON_VALUE})
+    public ResponseEntity<List<PhoneNumberData>> getCustomerPhoneNumbers(final @PathVariable Long customer_id) {
         return ResponseEntity.ok(directoryService.getAllPhoneNumbersForCustomers(customer_id));
     }
 
     /**
      * Get all phone numbers with the status
+     *
      * @return List of Phone numbers
      */
-
-    @ApiOperation(value = "Get All the Phone numbers with the actovation status.",
-            notes = "The successful invocation of this request will give you the List of  Phone numbers with Activation Status")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returned upon successfully execution")
-
-    })
     @GetMapping(value = "/phone_numbers", produces = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<List<PhoneNumber>> getAllPhoneNumbers() {
 
@@ -49,20 +61,18 @@ public class DirectoryController {
 
     /**
      * API to add the contacts in to a phone book
-     * @param customer
+     *
      * @return
      */
 
-    @ApiOperation(value = "Adds contacts to the Phone Directory.",
-            notes = "The successful invocation of this request will store the Phone number for a given customer")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Returned upon successfully storing the contact")
 
-    })
-    @PostMapping("/customer")
+    @PostMapping("/customers")
+    public HttpStatus addCustomerWithPhoneNumbers(@RequestBody List<CustomerData> custData) {
+        System.out.println(" Incoming Customer: " + custData);
+        directoryService.addCustomer(custData);
+        return HttpStatus.OK;
 
-    public ResponseEntity<Long> addCustomerToPhoneBook(@Valid @RequestBody Customer customer) {
-        return ResponseEntity.ok(directoryService.addCustomer(customer));
     }
+
 
 }

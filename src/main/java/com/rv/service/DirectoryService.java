@@ -2,21 +2,22 @@ package com.rv.service;
 
 import com.rv.entities.Customer;
 import com.rv.entities.PhoneNumber;
+import com.rv.model.CustomerData;
+import com.rv.model.PhoneNumberData;
 
 import java.util.List;
-import java.util.Set;
 
 public interface DirectoryService {
 
     Customer getCustomer(final Long id);
 
-    Set<PhoneNumber> getAllPhoneNumbersForCustomers(final Long customerId);
+    List<PhoneNumberData> getAllPhoneNumbersForCustomers(final Long customerId);
 
     List<PhoneNumber> getAllPhoneNumbers();
 
-    void activatePhoneNumber(final Long phoneNumberId);
+    void activatePhoneNumber(final String phoneNumber);
 
-    Long addCustomer(Customer customer);
+    void addCustomer(List<CustomerData> customerData);
 
     List<PhoneNumber> getAllPhoneNumbersPagination();
 
