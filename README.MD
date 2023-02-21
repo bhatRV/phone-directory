@@ -119,6 +119,7 @@ Below are some details on technical aspects of the project and few learnings.
 5. More APIs to add and update directory can be included
 6. Replace H2 Db, with proper db instance
 7. Containerize for better deployment
+8. Authontication and Security Checks can be added on top of the APIs to make it more secure
 
 
 ### Testing
