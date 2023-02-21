@@ -2,8 +2,6 @@ package com.rv.exception.handler;
 
 import org.springframework.http.HttpStatus;
 
-import java.util.Date;
-
 public class APIErrorResponse {
   private String message;
   private HttpStatus status;

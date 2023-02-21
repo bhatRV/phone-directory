@@ -1,6 +1,5 @@
 package com.rv.service;
 
-import com.rv.entities.Customer;
 import com.rv.entities.PhoneNumber;
 import com.rv.model.CustomerData;
 import com.rv.model.PhoneNumberData;
