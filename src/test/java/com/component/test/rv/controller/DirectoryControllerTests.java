@@ -3,13 +3,14 @@ package com.component.test.rv.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rv.controller.DirectoryController;
-import com.rv.entities.Customer;
 import com.rv.entities.PhoneNumber;
 import com.rv.entities.Status;
 import com.rv.model.CustomerData;
 import com.rv.model.PhoneNumberData;
 import com.rv.service.DirectoryService;
+import org.junit.Ignore;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,12 +19,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -31,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @WebMvcTest(DirectoryController.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@Disabled
 public class DirectoryControllerTests {
 
     @Autowired

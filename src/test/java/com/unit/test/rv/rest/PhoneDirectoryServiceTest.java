@@ -2,7 +2,6 @@ package com.unit.test.rv.rest;
 
 
 import com.rv.PhoneDirectoryApplication;
-
 import com.rv.entities.Customer;
 import com.rv.entities.PhoneNumber;
 import com.rv.entities.Status;
@@ -13,10 +12,8 @@ import com.rv.model.CustomerData;
 import com.rv.model.PhoneNumberData;
 import com.rv.repository.CustomerRepository;
 import com.rv.repository.PhoneRepository;
-import com.rv.service.DirectoryService;
 import com.rv.service.DirectoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
-
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -28,13 +25,11 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.reactive.server.WebTestClient;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
